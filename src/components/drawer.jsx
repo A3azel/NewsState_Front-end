@@ -13,11 +13,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import {FormControlLabel, Grid, InputAdornment, TextField, Typography} from "@mui/material";
+import {Button, Container, FormControlLabel, Grid, InputAdornment, TextField, Typography} from "@mui/material";
 import CustomCheckbox from "./customCheckbox";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import LoginNavigation from "./loginNavigation";
 import DrawerLoginNavigation from "./drawerLoginNavigation";
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 /* Все константы в отдельные js файлы под каждый компонент*/
 /* Общие константы по  типу размера и цветов также в отдельный js файл*/
@@ -38,9 +37,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const fieldStyles = {
-    margin: '20px 20px 40px 20px',
-    width: '200px',
-    height: '10px',
+    margin:'20px',
+    width: '300px',
     '& label.Mui-focused': {
         color: selectedElement,
     },
@@ -68,6 +66,20 @@ const fieldStyles = {
         backgroundColor: customWhite
     },
 };
+
+const buttonStyles = {
+    backgroundColor : bodyColor,
+    margin: '20px',
+    border: '2px solid #F0F0F0',
+    borderRadius: '15px',
+    width: '300px',
+    "&:hover": {
+        backgroundColor: customGray
+    },
+    "&& .MuiTouchRipple-child": {
+        backgroundColor: bodyColor
+    }
+}
 
 const typographyStyles = {
     color: customWhite,
@@ -117,16 +129,27 @@ export default function AppDrawer({theme, open, handleDrawerClose}) {
                 <IconButton onClick={handleDrawerClose}>
                     {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                 </IconButton>
-                <DrawerLoginNavigation/>
             </DrawerHeader>
-            {/*<Divider />*/}
+            <DrawerHeader sx={{backgroundColor:bodyColor}}>
+                <Container>
+                    <DrawerLoginNavigation/>
+                </Container>
 
+            </DrawerHeader>
+            <Divider />
             <TextField
                 onChange={(e) => {
                     setQuery(e.target.value);
                 }}
                 type={"text"}
                 placeholder="Search..."
+                /*InputProps={{
+                    startAdornment: (
+                        <InputAdornment sx={{backgroundColor: customWhite}} position="start">
+                            <TravelExploreIcon />
+                        </InputAdornment>
+                    ),
+                }}*/
                 sx = {fieldStyles}
                 InputLabelProps={{shrink: false}}
             />
@@ -203,24 +226,29 @@ export default function AppDrawer({theme, open, handleDrawerClose}) {
                        sx={{
                            '& .MuiInput-underline:before': { borderBottomColor: customGray },
                            '& .MuiInput-underline:after': { borderBottomColor: customGray },
+                           input: { color: customWhite }
                        }}
             />
             <hr/>
 
 
-           <Typography sx={ typographyStyles } >
+           {/*<Typography sx={ typographyStyles } >
                News:
-           </Typography>
-            <CustomCheckbox/>
-            {/*<Typography sx={ typographyStyles } >
-                Media:
-            </Typography>*/}
+           </Typography>*/}
             <CustomCheckbox/>
             <CustomCheckbox/>
+            <CustomCheckbox/>
+
+            <Button
+                variant="contained"
+                sx={buttonStyles}
+            >
+                Search
+            </Button>
 
             {/*Примеры кнопок, в дизайне их нет но пока пусть полежат закоментироваными*/}
 
-            <List >
+            {/*<List >
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem key={text} disablePadding >
                         <ListItemButton>
@@ -244,7 +272,7 @@ export default function AppDrawer({theme, open, handleDrawerClose}) {
                         </ListItemButton>
                     </ListItem>
                 ))}
-            </List>
+            </List>*/}
         </Drawer>
     );
 }

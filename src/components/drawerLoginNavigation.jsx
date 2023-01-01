@@ -4,6 +4,7 @@ import {Button, Container} from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
 const customWhite = '#F0F0F0';
+const selectedElement = '#309CDD';
 
 const registrationURL = '/registration';
 const loginURL = '/login';
@@ -13,9 +14,11 @@ const DrawerLoginNavigation = () => {
     const buttonStyle = {
         color: customWhite,
         fontSize: 14,
-        //fontWeight: '300px',
         marginBottom: 2,
-        fontFamily: 'Bold'
+        fontFamily: 'Bold',
+        "&:hover": {
+            color: selectedElement
+        }
     }
 
 

@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormHelperText,
-    FormLabel,
-    Grid,
-    Typography
-} from "@mui/material";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, Typography} from "@mui/material";
 
 const customWhite = '#F0F0F0';
 

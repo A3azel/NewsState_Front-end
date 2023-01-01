@@ -2,11 +2,17 @@ import * as React from 'react';
 import {styled, useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
 import AppHeader from "./header";
 import AppDrawer from "./drawer";
+import {Paper} from "@mui/material";
+import Newsfeed from "./newsfeed";
 
 const drawerWidth = 360;
+
+const bodyColor = '#202124';
+const selectedElement = '#309CDD';
+const customWhite = '#F0F0F0';
+const customGray = '#979797';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -35,6 +41,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
 }));
 
+const paper = {
+    position: "relative",
+    paddingTop: '100px',
+    paddingBottom: '100px',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    background: bodyColor,
+
+}
+
 export default function NewsPage() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -48,7 +65,7 @@ export default function NewsPage() {
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        /*<Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppHeader open={open} handleDrawerOpen={handleDrawerOpen}/>
             <AppDrawer theme={theme} open={open} handleDrawerClose={handleDrawerClose}/>
@@ -81,6 +98,17 @@ export default function NewsPage() {
                     eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
                     posuere sollicitudin aliquam ultrices sagittis orci a.
                 </Typography>
+            </Main>
+        </Box>*/
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <AppHeader open={open} handleDrawerOpen={handleDrawerOpen}/>
+            <AppDrawer theme={theme} open={open} handleDrawerClose={handleDrawerClose}/>
+            <Main open={open}>
+                <DrawerHeader />
+                <Paper sx={paper}>
+                    <Newsfeed/>
+                </Paper>
             </Main>
         </Box>
     );
