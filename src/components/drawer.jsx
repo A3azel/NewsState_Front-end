@@ -91,6 +91,7 @@ export default function AppDrawer({theme, open, handleDrawerClose}) {
                     boxSizing: 'border-box',
                 },
             }}
+
             PaperProps={{
                 sx: {
                     backgroundColor: customBackgroundColor
