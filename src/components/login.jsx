@@ -2,18 +2,56 @@ import React, {useState} from 'react';
 import {Button, InputLabel, Paper, TextField} from "@mui/material";
 import LoginNavigation from "./loginNavigation";
 import {alpha} from "@mui/material/styles";
+import {authenticateUser} from "../services/user/auth/authActions";
+import {useDispatch} from "react-redux";
 
 const bodyColor = '#202124';
 const selectedElement = '#309CDD';
 const customWhite = '#F0F0F0';
 const customGray = '#979797';
 
-const Login = () => {
-    const[email, setEmail] = useState('');
+const Login = (props) => {
+   /* const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
 
     const[emailErrors, setEmailErrors] = useState(false);
-    const[passwordErrors, setPasswordErrors] = useState(false);
+    const[passwordErrors, setPasswordErrors] = useState(false);*/
+
+    const [error, setError] = useState();
+    const [show, setShow] = useState(true);
+
+    const initialState = {
+        email: "",
+        password: "",
+    };
+
+    const [user, setUser] = useState(initialState);
+
+    const credentialChange = (event) => {
+        const { name, value } = event.target;
+        setUser({ ...user, [name]: value });
+    };
+
+    const dispatch = useDispatch();
+
+    const validateUser = () => {
+        dispatch(authenticateUser(user.email, user.password))
+            .then((response) => {
+                console.log(response.data);
+                return props.history.push("/home");
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setShow(true);
+                resetLoginForm();
+                setError("Invalid email and password");
+            });
+    };
+
+    const resetLoginForm = () => {
+        setUser(initialState);
+    };
+
 
 
 
@@ -84,10 +122,10 @@ const Login = () => {
         }
     }
 
-    const createLoginRequest = (e) =>{
+    /*const createLoginRequest = (e) =>{
         e.preventDefault();
         console.log(email, password);
-    }
+    }*/
 
     return (
         <div>
@@ -101,9 +139,8 @@ const Login = () => {
                         Email
                     </InputLabel>
                     <TextField
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                        }}
+                        value={user.email}
+                        onChange={credentialChange}
                         id={"email"}
                         type={"email"}
                         placeholder="Email"
@@ -119,9 +156,8 @@ const Login = () => {
                         Password
                     </InputLabel>
                     <TextField
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                        }}
+                        value={user.password}
+                        onChange={credentialChange}
                         id={"password"}
                         type={"password"}
                         placeholder="Password"
@@ -142,7 +178,8 @@ const Login = () => {
                     />
                     <br/>
                     <Button
-                        onClick={createLoginRequest}
+                        onClick={resetLoginForm}
+                        disabled={user.email.length === 0 && user.password.length === 0}
                         variant="contained"
                         sx={buttonStyles}
                     >
